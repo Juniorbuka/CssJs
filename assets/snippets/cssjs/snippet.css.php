@@ -4,7 +4,7 @@ if(!defined('MODX_BASE_PATH')) {die('What are you doing? Get out of here!');}
 //Параметри
 $files = isset($files)? $files: ''; // Список файлів (css, scss, less)
 $minify = isset($minify)? $minify: '1'; //Стискати та мініфікувати файли
-$folder = isset($folder)? $ folder : ''; // Папка для згенерованих стилів за промовчанням в корінь
+$folder = isset($folder)? $folder : ''; // Папка для згенерованих стилів за промовчанням в корінь
 $inhtml = isset($inhtml)? $inhtml : '0'; // Розмістити відразу в HTML тегах <style></style>
 //$inline = isset($inline)? $inline : ''; // Інлайн код стилів
 //$parse = isset($parse)? $parse : '0'; // Чи обробляти теги MODX
