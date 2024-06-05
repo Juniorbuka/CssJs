@@ -1,14 +1,16 @@
 <?php
 if(!defined('MODX_BASE_PATH')) {die('What are you doing? Get out of here!');}
 
-//параметры
-$files = isset($files) ? $files : ''; // Список файлов (css, scss, less)
-$minify = isset($minify) ? $minify : '1'; //сжымать и минифицировать файлы
-$folder = isset($folder) ? $folder : ''; // папка для сгенерированных стилей по умолчанию в корень
-//$inline = isset($inline) ? $inline : ''; // инлайн код стилей
-//$parse = isset($parse) ? $parse : '0'; //обрабатывать ли теги MODX
+// Параметри
+$files = isset($files) ? $files : ''; // Список файлів (css, scss, less)
+$minify = isset($minify) ? $minify : '1'; // зжимати і мініфікувати файли
+$folder = isset($folder) ? $folder : ''; // папка для згенерованих стилів за замовчуванням в корінь
+$filename = isset($filename) ? $filename : 'scripts'; // Ім'я файлу
+$filepre = isset($filepre) ? $filepre : ''; // Завантаження файлу, наприклад (defer)
+//$inline = isset($inline) ? $inline : ''; // інлайн код стилів
+//$parse = isset($parse) ? $parse : '0'; // обробляти чи теги MODX
 
-//Обрабатываем файлы, преобразовываем less и scss
+// Обробляємо файли, перетворюємо less і scss
 $filesArr = explode(',', str_replace('\n', '', $files));
 foreach ($filesArr as $key => $value) {
 	$file = MODX_BASE_PATH . trim($value);
@@ -16,10 +18,10 @@ foreach ($filesArr as $key => $value) {
 	$filesForMin[$key] = $file;  
 }
 if ($minify == '1') {
-	include_once(MODX_BASE_PATH. "assets/snippets/cssjs/class.magic-min.php"); 
-	$minified = new Minifier();
-	$min = $minified->merge( MODX_BASE_PATH.$folder.'scripts.min.js', 'js', $filesForMin );
-	return '<script src="'.$modx->config['site_url'].$folder.'scripts.min.js?v='.substr(md5(max($v)),0,3).'"></script>';
+		include_once(MODX_BASE_PATH. "assets/snippets/cssjs/class.magic-min.php"); 
+		$minified = new Minifier();
+		$min = $minified->merge( MODX_BASE_PATH.$folder.$filename.'.min.js', 'js', $filesForMin );
+		return '<script '.$filepre.' src="'.$modx->config['site_url'].$folder.$filename.'.min.js?v='.substr(md5(max($v)),0,3).'"></script>';
 }else{
 	$links = '';
 	foreach ($filesArr as $key => $value) {
